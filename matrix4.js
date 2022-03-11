@@ -267,8 +267,8 @@ Matrix4.prototype = {
 		// Note: Do NOT change earthWorldMatrix but do use it, it already contains the rotation and translation for the earth
 
 		var moonMatrix = new Matrix4().makeRotationZ(moonRotationAngle);
-		var moonMatrix2 = new Matrix4().makeTranslation(offsetFromEarth);
-		earthWorldMatrix.multiply(moonMatrix).multiply(moonMatrix2);
+		var newmoonMatrix = new Matrix4().makeTranslation(offsetFromEarth);
+		earthWorldMatrix.multiply(moonMatrix).multiply(newmoonMatrix);
 
 		// todo - create and combine all necessary matrices necessary to achieve the desired effect
 
