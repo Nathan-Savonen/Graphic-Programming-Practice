@@ -151,9 +151,15 @@ function updateAndRender() {
 
 
     // todo #9 - animate the color of there sphere
+    var oscillation = Math.sin(time.secondsElapsedSinceStart)
+    if(oscillation < 0)
+    {
+        oscillation = oscillation*(-1);
+    } 
     // todo #10 - animate the color with non-grayscale values
+    gl.uniform4f(colorProgram.uniforms.colorUniform, oscillation , oscillation - 1, oscillation -1, 1);
 
     // todo #3 - render the sphere
-    gl.uniform4f(colorProgram.uniforms.colorUniform, 1.0, 1.0, 1.0, 1.0);
+    //gl.uniform4f(colorProgram.uniforms.colorUniform, 1.0, 1.0, 1.0, 1.0);
     sphereGeometry.render(camera, projectionMatrix, colorProgram);
-}   
+} 
