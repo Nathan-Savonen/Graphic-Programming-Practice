@@ -59,15 +59,20 @@ function WebGLGeometryQuad (gl) {
 			this.texture = gl.createTexture();
 
 			// 2. bind the texture
-			this.gl.bindTexture(gl.TEXTURE_2D,texture);
+			this.gl.bindTexture(gl.TEXTURE_2D,this.texture);
 
 			// needed for the way browsers load images, ignore this
 			this.gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
 			// 3. set wrap modes (for s and t) for the texture
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 			
 			// 4. set filtering modes (magnification and minification)
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 			// 5. send the image WebGL to use as this texture
+			gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE, rawImage);
 
 			// We're done for now, unbind
 			this.gl.bindTexture(gl.TEXTURE_2D, null);
@@ -121,8 +126,8 @@ function WebGLGeometryQuad (gl) {
 		if (this.texture) {
 			// todo #4
 			// uncomment when ready
-			// gl.activeTexture(?);
-			// gl.bindTexture(?, ?);
+			 gl.activeTexture(gl.TEXTURE0);
+			 gl.bindTexture(gl.TEXTURE_2D,this.texture);
 		}
 
 		// Send our matrices to the shader
